@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <h1>Chiffrement ADFGVX</h1>
+    <h2>Par Maxime Parret et Arnaud Plumez</h2>
+    <Home/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Home from './components/Home'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Home
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: #222;
+  min-height: 100vh;
+}
+h1, h2 {
+  margin: 0;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: white;
+  font-size: 50px;
+  padding-top: 10px;
+}
+h2 {
+  font-size: 20px;
+  padding-top: 2px;
+  color: #666;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 </style>
