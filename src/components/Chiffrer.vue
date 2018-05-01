@@ -1,12 +1,17 @@
 <template>
   <div id="chiffrer">
     Chiffrer
+    <TableauSubstitution/>
   </div>
 </template>
 
 <script>
+import TableauSubstitution from './TableauSubstitution'
 export default {
-  name: 'Chiffrer'
+  name: 'Chiffrer',
+  components: {
+    TableauSubstitution
+  }
 }
 </script>
 

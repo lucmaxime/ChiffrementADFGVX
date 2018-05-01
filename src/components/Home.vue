@@ -18,11 +18,12 @@ export default {
   data () {
     return {
       isChiffrer: false,
-      isDechiffrer: false
+      isDechiffrer: false,
+      fileText: ''
     }
   },
   methods: {
-    toggleRadios: (val) => {
+    toggleRadios: function (val) {
       if (!this.isChiffrer && !this.isDechiffrer) {
         this.isDechiffrer = (val === '1')
         this.isChiffrer = (val === '2')
@@ -47,6 +48,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
+  cursor: pointer;
 }
 .radios > div {
   flex-basis: 25vw;
