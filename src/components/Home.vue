@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="radios">
-      <div @click="toggleRadios('1')" class="radio-dechiffrer">Déchiffrer</div>
-      <div @click="toggleRadios('2')" class="radio-chiffrer">Chiffrer</div>
+      <div @click="toggleRadios('1')" :class="{ selected: !isChiffrer }" class="radio-dechiffrer">Déchiffrer</div>
+      <div @click="toggleRadios('2')" :class="{ selected: !isDechiffrer }" class="radio-chiffrer">Chiffrer</div>
     </div>
 
     <Chiffrer v-show="isChiffrer"/>
@@ -18,19 +18,14 @@ export default {
   data () {
     return {
       isChiffrer: false,
-      isDechiffrer: false,
+      isDechiffrer: true,
       fileText: ''
     }
   },
   methods: {
     toggleRadios: function (val) {
-      if (!this.isChiffrer && !this.isDechiffrer) {
-        this.isDechiffrer = (val === '1')
-        this.isChiffrer = (val === '2')
-      } else {
-        this.isChiffrer = !this.isChiffrer
-        this.isDechiffrer = !this.isDechiffrer
-      }
+      this.isDechiffrer = (val === '1')
+      this.isChiffrer = (val === '2')
     }
   },
   components: {
@@ -51,15 +46,16 @@ export default {
   cursor: pointer;
 }
 .radios > div {
-  flex-basis: 25vw;
+  flex-basis: 10vw;
   text-align: center;
   padding: 20px 0;
   background: #adff2f;
   transition: all .5s;
+  font-family: 'Roboto', sans-serif;
 }
 .radios > div:hover {
   background: #acff2fd0;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 .radios div:first-child {
@@ -67,5 +63,10 @@ export default {
 }
 .radios div:last-child {
   border-radius: 0 10px 10px 0;
+}
+.radios .selected {
+  flex-grow: 1;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 </style>
