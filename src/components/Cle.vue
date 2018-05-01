@@ -20,7 +20,7 @@ export default {
         return key
       },
       set: function (newValue) {
-        this.keyValue = newValue
+        this.keyValue = newValue.toUpperCase()
       }
     }
   }
