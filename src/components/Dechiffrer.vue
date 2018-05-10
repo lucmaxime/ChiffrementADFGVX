@@ -1,8 +1,10 @@
 <template>
   <div id="dechiffrer">
-    <InputSelect @load="text = $event"/>
+    <InputSelect @load="text = $event.replace(new RegExp(/[\s]/, 'g'), '')"/>
     <Cle @load="key = $event"/>
     <TableauSubstitution @load="tableau = $event"/>
+    <div class="midEncodedText">Texte déchiffré intermédiaire :</div>
+    <textarea class="noMarginBottom" v-model="midDecodedText" readonly></textarea>
     <div class="encodedText">Texte entièrement déchiffré :</div>
     <textarea class="noMarginBottom" v-model="decodedText" readonly></textarea>
   </div>
@@ -23,18 +25,48 @@ export default {
   },
   computed: {
     decodedText: function () {
-      let midEncodedText = ''
-      let textWithoutSpaces = this.text.replace(new RegExp(/[\s]+/, 'g'), ' ')
-      for (let i = 0; i < textWithoutSpaces.length; i += 2) {
-        let char = textWithoutSpaces[i] + '' + textWithoutSpaces[i + 1]
-        midEncodedText += this.flattenTableau.get(char.toUpperCase())
+      let midDecodedText = this.midDecodedText
+      let decodedText = ''
+      for (let i = 0; i < midDecodedText.length; i += 2) {
+        let char = midDecodedText[i] + '' + midDecodedText[i + 1]
+        decodedText += this.flattenTableau.get(char.toUpperCase())
       }
-      return midEncodedText.toUpperCase()
+      return decodedText.toUpperCase()
+    },
+    midDecodedText: function () {
+      if (this.key === '' || this.text === '') return ''
+
+      let keyLength = this.key.length
+      let arrayWithKey = []
+      let orderedKey = this.key.split('').sort()
+      for (let i = 0; i < keyLength; i++) {
+        arrayWithKey.push([orderedKey[i]])
+      }
+
+      for (let i = 0; i < this.text.length / keyLength; i++) {
+        for (let j = 0; j < keyLength % this.text.length; j++) {
+          alert(i + ' ' + j + ' ' + this.text.length + ' ' + keyLength)
+          arrayWithKey[i][j + 1] = this.text[i * Math.floor(this.text.length / keyLength) + j]
+        }
+      }
+
+      let finalArray = []
+      for (let i = 0; i < arrayWithKey.length; i++) {
+        finalArray[this.key.indexOf(arrayWithKey[i][0])] = arrayWithKey[i]
+      }
+
+      let midDecodedText = ''
+      for (let i = 1; i < finalArray[0].length; i++) {
+        for (let j = 0; j < finalArray.length; j++) {
+          midDecodedText += finalArray[j][i]
+        }
+      }
+      return midDecodedText
     },
     flattenTableau: function () {
       let flatten = new Map()
       for (let i = 1; i < this.tableau.length; i++) {
-        for (let j = 1; j < this.tableau[i].length; j++) {
+        for (let j = 1; j < this.tableau[0].length; j++) {
           flatten.set(this.tableau[i][0] + this.tableau[0][j], this.tableau[i][j])
         }
       }
