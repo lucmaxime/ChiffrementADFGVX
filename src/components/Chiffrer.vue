@@ -57,6 +57,11 @@ export default {
         if (char !== ' ') arrayWithKey[i % keyLength].push(char)
       }
 
+      let arrayLength = arrayWithKey[0].length
+      for (let i = 0; i < arrayWithKey.length; i++) {
+        if (arrayWithKey[i].length !== arrayLength) arrayWithKey[i].push('A')
+      }
+
       arrayWithKey = arrayWithKey.sort((a, b) => {
         return a[0].charCodeAt(0) - b[0].charCodeAt(0)
       })
