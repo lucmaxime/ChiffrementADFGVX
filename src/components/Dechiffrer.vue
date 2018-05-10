@@ -30,7 +30,7 @@ export default {
       for (let i = 0; i < midDecodedText.length; i += 2) {
         let char = midDecodedText[i] + '' + midDecodedText[i + 1]
         decodedText += this.flattenTableau.get(char.toUpperCase())
-      }
+      } 
       return decodedText.toUpperCase()
     },
     midDecodedText: function () {
@@ -45,8 +45,9 @@ export default {
 
       for (let i = 0; i < this.text.length / keyLength; i++) {
         for (let j = 0; j < keyLength % this.text.length; j++) {
-          alert(i + ' ' + j + ' ' + this.text.length + ' ' + keyLength)
-          arrayWithKey[i][j + 1] = this.text[i * Math.floor(this.text.length / keyLength) + j]
+          if (Math.floor(this.text.length / keyLength) * i + j < this.text.length) { 
+            arrayWithKey[i][j + 1] = this.text[i * Math.floor(this.text.length / keyLength) + j]
+          }
         }
       }
 
